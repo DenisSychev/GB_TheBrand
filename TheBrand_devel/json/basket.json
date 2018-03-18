@@ -1,0 +1,33 @@
+{
+  "result": 1,
+  "basket": [
+    {
+      "id_product": 125,
+      "src": "img/products/product-49-small.jpg",
+      "title": "Mango People T-shirt",
+      "color": "Red",
+      "size": "M",
+      "price": 150,
+      "shipping": "FREE"
+    },
+    {
+      "id_product": 123,
+      "src": "img/products/product-48-small.jpg",
+      "title": "Mango People T-shirt",
+      "color": "Blue",
+      "size": "XL",
+      "price": 250,
+      "shipping": "FREE"
+    },
+    {
+      "id_product": 456,
+      "src": "img/products/product-50-small.jpg",
+      "title": "Mango People T-shirt",
+      "color": "Black",
+      "size": "S",
+      "price": 100,
+      "shipping": 5
+    }
+  ],
+  "amount": 500
+}

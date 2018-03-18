@@ -1,0 +1,116 @@
+.subscribe
+  width: 100%
+  height: 438px
+  background: url("../img/surf.jpg") center
+  background-size: cover
+  background-color: #f2f2f2
+
+.subscribe-block
+    display: flex
+    height: 100%
+
+.review
+  width: 50%
+  display: flex
+  border-right: 1px solid #ffffff
+  img
+    margin-top: 111px
+    margin-right: 28px
+    width: 83px
+    height: 83px
+  .commentText
+    margin-top: 115px
+    width: 386px
+    color: #222224
+    font-size: 16px
+    font-style: italic
+    line-height: 26px
+    letter-spacing: 0.4px
+  .commentName
+    margin-top: 19px
+    color: $accent-color
+    font-size: 16px
+    font-weight: 700
+    letter-spacing: 0.4px
+    line-height: 26px
+  .commentPlace
+    color: #222224
+    font-size: 12px
+    font-weight: 300
+    letter-spacing: 0.3px
+    line-height: 14px
+  .topic
+    margin-top: 41px
+    margin-right: 13px
+    display: inline-block
+    width: 38px
+    height: 4px
+    background-color: #d6d6d6
+  .activeTopic
+    background-color: $accent-color
+
+.subscribe-form
+  width: 50%
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-direction: column
+  h3
+    color: #222224
+    font-weight: 400
+    font-size: 24px
+    letter-spacing: 0.6px
+    text-transform: uppercase
+  p
+    color: #222224
+    font-size: 14px
+    font-weight: 400
+    text-transform: uppercase
+    letter-spacing: 0.35px
+    line-height: 24px
+
+.subscribeUser
+  margin-top: 35px
+  position: relative
+  input[type='email']
+    width: 334px
+    height: 46px
+    border: 1px solid #e1e1e1
+    border-radius: 23px
+    background-color: #e1e1e1
+    /* Внутри поля ввода */
+    color: #222224
+    font-size: 14px
+    font-weight: 400
+    line-height: 46px
+    letter-spacing: 0.35px
+    padding: 0 103px 0 13px
+  input[type='submit']
+    position: absolute
+    top: 0
+    right: 0
+    display: inline-block
+    height: 46px
+    border: 1px solid $accent-color
+    border-radius: 0 23px 23px 0
+    background-color: $accent-color
+    cursor: pointer
+    /* Внутри кнопки */
+    padding: 0 13px
+    color: #ffffff
+    font-size: 14px
+    font-weight: 400
+    line-height: 46px
+    letter-spacing: 0.35px
+
+input:focus
+  outline: none
+
+input[type='submit']:active
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
+
+input[type='submit']:hover
+  border: 1px solid #ef5b70
+  border-radius: 0 23px 23px 0
+  background-color: #ffffff
+  color: #ef5b70
