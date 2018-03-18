@@ -226,7 +226,9 @@ summary::-webkit-details-marker {
   border-bottom: 1px solid #ededed;
   margin-bottom: 16px; }
   .inBasket img {
-    margin-bottom: 15px; }
+    margin-bottom: 15px;
+    width: 72px;
+    height: 85px; }
 
 .specific h4 {
   margin-bottom: 10px;

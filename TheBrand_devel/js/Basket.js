@@ -13,7 +13,7 @@ Basket.prototype.constructor = Basket;
 
 /**
  * Отрисовка товаров в корзине
- * @param jQuerySelector
+ * @param htmlElement
  */
 Basket.prototype.render = function (htmlElement) {
   var $basketDiv = $('<div />', {
@@ -159,6 +159,7 @@ Basket.prototype.loadBasketItems = function () {
         var $iconCancelCircled = $('<i />', {
           class: 'icon-cancel-circled'
         });
+
         //Собирается текст-описание товара
         $goodTitle.appendTo($goodTextBlock);
         $goodColor.appendTo($goodTextBlock);
