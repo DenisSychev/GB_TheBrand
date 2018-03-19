@@ -16,17 +16,38 @@ BasketInDropDownPanel.prototype.constructor = BasketInDropDownPanel;
  * @param htmlElement
  */
 BasketInDropDownPanel.prototype.render = function (htmlElement) {
+
+  /**
+   * Drop down меню
+   * @type {jQuery|HTMLElement}
+   */
   var $basketDropDown = $('<div />', {
     class: 'cartDropDown',
     id: this.id + '_items'
   });
 
   /**
-   * Создание блока для отображения кнопок
+   * Блок кнопок
    * @type {jQuery|HTMLElement}
    */
   var $basketDDButtons = $('<div />', {
     class: "inBasketButtons"
+  });
+
+  /**
+   * Блок суммы товаров в корзине
+   * @type {jQuery|HTMLElement}
+   */
+  var $basketDDSum = $('<div />', {
+    class: "summCart"
+  });
+
+  /**
+   * Тест для блока суммы товаров в корзине
+   * @type {jQuery|HTMLElement}
+   */
+  var $textDDsum = $('<p />', {
+    text: 'Total'
   });
 
   /**
@@ -53,8 +74,10 @@ BasketInDropDownPanel.prototype.render = function (htmlElement) {
   $buttonCheckout.appendTo($basketDDButtons);
   $buttonGoCart.appendTo($basketDDButtons);
 
-  // //Добавление блока суммы товаров в корзине
-  // $basketDDSum.appendTo($basketDropDown);
+  //Добавление блока суммы товаров в корзине
+  $textDDsum.appendTo($basketDDSum);
+  $basketDDSum.appendTo($basketDropDown);
+
   //Добавление блока с кнопками в выпадающее меню
   $basketDDButtons.appendTo($basketDropDown);
 
@@ -64,6 +87,7 @@ BasketInDropDownPanel.prototype.render = function (htmlElement) {
 
 BasketInDropDownPanel.prototype.loadBasketItems = function () {
   var appendId = '#' + this.id + '_items';
+  var appendAmount = '.summCart';
 
   $.get({
     url: 'json/basket.json',
@@ -71,7 +95,19 @@ BasketInDropDownPanel.prototype.loadBasketItems = function () {
     context: this,
     success: function (data) {
       this.countGoods = data.basket.length;
-      this.amount = data.amount;
+      this.amountGoods = data.amount;
+
+      /**
+       * Сумма всех товаров в корзине
+       * @type {jQuery|HTMLElement}
+       */
+      var $basketAmount = $('<p />', {
+        text: '$' + this.amountGoods
+      });
+
+      //Добавление суммы всех товаров в корзине в блок суммы
+      $basketAmount.appendTo(appendAmount);
+
       for (var i = 0; i < data.basket.length; i++) {
         //this.amount = data.amount; //Сумма товаров
         this.src = data.basket[i].src;
@@ -178,18 +214,6 @@ BasketInDropDownPanel.prototype.loadBasketItems = function () {
           class: 'icon-cancel-circled'
         });
 
-        // /**
-        //  * Создание блока отображаения суммы товаров в корзине
-        //  * @type {jQuery|HTMLElement}
-        //  */
-        // var $basketDDSum = $('<div />', {
-        //   class: "summCart",
-        // });
-        //
-        // var $basketAmount = $('<p />', {
-        //   text: '$' + this.amount
-        // });
-
         $goodImg.appendTo($basketItemsDiv);
 
         $goodTitle.appendTo($goodSpecific);
@@ -207,9 +231,6 @@ BasketInDropDownPanel.prototype.loadBasketItems = function () {
         $iconCancelCircled.appendTo($goodDell);
         $goodDell.appendTo($basketItemsDiv);
 
-        // $basketAmount.appendTo($basketDDSum);
-        // $basketDDSum.prependTo(appendId);
-
         $basketItemsDiv.prependTo(appendId);
       }
     }
@@ -225,7 +246,14 @@ BasketInDropDownPanel.prototype.add = function (idProduct, src, title, price) {
   };
 
   // this.countGoods++;
-  this.amount += price;
+  this.amountGoods += price;
   this.basketItems.push(basketItem);
-  this.refresh(); //Перерисовываем корзину
+  this.refresh();
+};
+
+BasketInDropDownPanel.prototype.refresh = function () {
+  var $basketDropDown = $('.cartDropDown');
+  $basketDropDown.empty();
+
+
 };
