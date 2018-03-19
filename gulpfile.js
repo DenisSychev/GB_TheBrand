@@ -18,7 +18,7 @@ const config = {
 gulp.task('server', function () {
   BS({
     server: {
-      baseDir: config.devel
+      baseDir: config.test
     }
   })
 });
@@ -35,7 +35,7 @@ gulp.task('watch', function () {
 /**
  * Перечень задач для выполнения в процессе разработки. Вызывается gulp
  */
-gulp.task('default', ['html', 'sass', 'js', 'cssTransfer', 'fonts', 'img', 'video', 'watch', 'server'], function () {
+gulp.task('default', ['html', 'sass', 'js', 'cssTransfer', 'fonts', 'img', 'video', 'json', 'watch', 'server'], function () {
   console.log('Запущено выполнение нескольких задач');
 });
 
@@ -68,7 +68,7 @@ gulp.task('cssTransfer', function () {
 });
 
 /**
- * Конвертирует и переносит js-файлы в релизную директорию
+ * Конвертирует и переносит js-файлы в тестовую директорию
  */
 gulp.task('js', function () {
   gulp.src(config.devel + '/js/**/*.js')
@@ -79,7 +79,7 @@ gulp.task('js', function () {
 });
 
 /**
- * Переносит все шрифты в релизную директорию
+ * Переносит все шрифты в тестовую директорию
  */
 gulp.task('fonts', function () {
   gulp.src(config.devel + '/font/*')
@@ -88,7 +88,7 @@ gulp.task('fonts', function () {
 });
 
 /**
- * Переносит все картинки в релизную директорию
+ * Переносит все картинки в тестовую директорию
  */
 gulp.task('img', function () {
   gulp.src(config.devel + '/img/**/*')
@@ -97,10 +97,19 @@ gulp.task('img', function () {
 });
 
 /**
- * Переносит все видео-файлы в релизную директорию
+ * Переносит все видео-файлы в тестовую директорию
  */
 gulp.task('video', function () {
   gulp.src(config.devel + '/video/*')
     .pipe(gulp.dest(config.test + '/video'))
+    .pipe(BS.reload({stream: true}))
+});
+
+/**
+ * Переносит все json-файлы в тестовую директорию
+ */
+gulp.task('json', function () {
+  gulp.src(config.devel + '/json/*')
+    .pipe(gulp.dest(config.test + '/json'))
     .pipe(BS.reload({stream: true}))
 });

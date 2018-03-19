@@ -1,3 +1,4 @@
 .idea
 node_modules/
 TheBrand_test/
+.DS_Store
