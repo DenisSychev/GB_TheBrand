@@ -1,7 +1,7 @@
 "use strict";
 
-function BasketInDropDownPanel(idBasket) {
-  Container.call(this, idBasket);
+function BasketInDropDownPanel(id) {
+  Container.call(this, id);
   this.countGoods = 0;
   this.amountGoods = 0;
   this.basketItems = [];
@@ -78,29 +78,49 @@ BasketInDropDownPanel.prototype.loadBasketItems = function () {
         this.title = data.basket[i].title;
         this.price = data.basket[i].price;
 
+        /**
+         * Контейнер товара в drop down меню
+         * @type {jQuery|HTMLElement}
+         */
         var $basketItemsDiv = $('<div />', {
           class: 'inBasket'
         });
 
+        /**
+         * Картинка товара
+         * @type {jQuery|HTMLElement}
+         */
         var $goodImg = $('<img />', {
           src: this.src,
           alt: this.title
         });
 
+        /**
+         * Контейнер с описанием товара
+         * @type {jQuery|HTMLElement}
+         */
         var $goodSpecific = $('<div />', {
           class: 'specific'
         });
 
+        /**
+         * Название товара
+         * @type {jQuery|HTMLElement}
+         */
         var $goodTitle = $('<h4 />', {
           text: this.title
         });
 
+        /**
+         * Контейнер рейтинга товара
+         * @type {jQuery|HTMLElement}
+         */
         var $goodRating = $('<div />', {
           class: 'rating'
         });
 
         /**
-         * Добавление целой звезды из набора Fontello
+         * Целая звезда из набора Fontello для рейтинга товара
          * @type {jQuery|HTMLElement}
          */
         var $iconFullStar = $('<i />', {
@@ -108,38 +128,50 @@ BasketInDropDownPanel.prototype.loadBasketItems = function () {
         });
 
         /**
-         * Добавление половины звезды из набора Fontello
+         * Половина звезды из набора Fontello для рейтинга товара
          * @type {jQuery|HTMLElement}
          */
         var $iconHalfStar = $('<i />', {
           class: 'icon-star-half-alt'
         });
 
-        var $goodPrice = $('<div />', {
-          class: 'amount',
-          text: '$' + this.price
-        });
-
+        /**
+         * Контейнер количества и суммы одного товара
+         * @type {jQuery|HTMLElement}
+         */
         var $goodCountDiv = $('<div />', {
-          class: 'count'
+          class: 'count',
+          text: 'x'
         });
 
+        /**
+         * Количество одного товара
+         * @type {jQuery|HTMLElement}
+         */
         var $goodCount = $('<div />', {
           class: 'number',
           text: 1
         });
 
+        /**
+         * Цена единицы товара
+         * @type {jQuery|HTMLElement}
+         */
         var $goodPrice = $('<div />', {
           class: 'amount',
-          text: 'x ' + this.price
+          text: '$' + this.price
         });
 
+        /**
+         * Контейнер кнопки удаления товара
+         * @type {jQuery|HTMLElement}
+         */
         var $goodDell = $('<div />', {
           class: 'dell'
         });
 
         /**
-         * Добавление крестика из набора Fontello
+         * Крестик из набора Fontello для удаления товара
          * @type {jQuery|HTMLElement}
          */
         var $iconCancelCircled = $('<i />', {
@@ -166,7 +198,7 @@ BasketInDropDownPanel.prototype.loadBasketItems = function () {
         $iconHalfStar.appendTo($goodRating);
         $goodRating.appendTo($goodSpecific);
 
-        $goodCount.appendTo($goodCountDiv);
+        $goodCount.prependTo($goodCountDiv);
         $goodPrice.appendTo($goodCountDiv);
         $goodCountDiv.appendTo($goodSpecific);
 

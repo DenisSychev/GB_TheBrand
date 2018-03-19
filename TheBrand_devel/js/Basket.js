@@ -1,7 +1,7 @@
 "use strict";
 
-function Basket(idBasket) {
-  Container.call(this, idBasket);
+function Basket(id) {
+  Container.call(this, id);
   this.countGoods = 0;
   this.amountGoods = 0;
   this.basketItems = [];
