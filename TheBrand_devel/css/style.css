@@ -615,7 +615,7 @@ input[type='submit']:hover {
   .product:hover img {
     filter: brightness(40%);
     transition: 1s ease; }
-  .product:hover a {
+  .product:hover button {
     display: block;
     transition: 1s ease; }
 
@@ -643,10 +643,9 @@ input[type='submit']:hover {
   text-align: center;
   text-decoration: none;
   display: none; }
-
-.cartProduct:hover {
-  background-color: #ffffff;
-  color: black; }
+  .cartProduct:hover {
+    background-color: #ffffff;
+    color: black; }
 
 .allProduct {
   padding: 0 15px;

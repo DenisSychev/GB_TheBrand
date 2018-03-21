@@ -3,7 +3,7 @@
   "basket": [
     {
       "id_product": 125,
-      "src": "img/products/product-49-small.jpg",
+      "src": "img/products/product-53.jpg",
       "title": "Mango People T-shirt",
       "color": "Red",
       "size": "M",
@@ -12,7 +12,7 @@
     },
     {
       "id_product": 123,
-      "src": "img/products/product-48-small.jpg",
+      "src": "img/products/product-47.jpg",
       "title": "Mango People T-shirt",
       "color": "Blue",
       "size": "XL",
@@ -21,7 +21,7 @@
     },
     {
       "id_product": 456,
-      "src": "img/products/product-50-small.jpg",
+      "src": "img/products/product-6.jpg",
       "title": "Mango People T-shirt",
       "color": "Black",
       "size": "S",

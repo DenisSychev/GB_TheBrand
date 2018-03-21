@@ -1,0 +1,77 @@
+{
+  "result": 1,
+  "product": [
+    {
+      "id_product": 125,
+      "src": "img/products/product-2.jpg",
+      "title": "Mango People T-shirt",
+      "color": "Red",
+      "size": "M",
+      "price": 150,
+      "shipping": "FREE"
+    },
+    {
+      "id_product": 123,
+      "src": "img/products/product-3.jpg",
+      "title": "Mango People T-shirt",
+      "color": "Blue",
+      "size": "XL",
+      "price": 250,
+      "shipping": "FREE"
+    },
+    {
+      "id_product": 456,
+      "src": "img/products/product-4.jpg",
+      "title": "Mango People T-shirt",
+      "color": "Black",
+      "size": "S",
+      "price": 100,
+      "shipping": 5
+    },
+    {
+      "id_product": 124,
+      "src": "img/products/product-5.jpg",
+      "title": "Mango People T-shirt",
+      "color": "Black",
+      "size": "S",
+      "price": 100,
+      "shipping": 5
+    },
+    {
+      "id_product": 126,
+      "src": "img/products/product-6.jpg",
+      "title": "Mango People T-shirt",
+      "color": "Red",
+      "size": "M",
+      "price": 150,
+      "shipping": "FREE"
+    },
+    {
+      "id_product": 127,
+      "src": "img/products/product-7.jpg",
+      "title": "Mango People T-shirt",
+      "color": "Blue",
+      "size": "XL",
+      "price": 250,
+      "shipping": "FREE"
+    },
+    {
+      "id_product": 457,
+      "src": "img/products/product-8.jpg",
+      "title": "Mango People T-shirt",
+      "color": "Black",
+      "size": "S",
+      "price": 100,
+      "shipping": 5
+    },
+    {
+      "id_product": 458,
+      "src": "img/products/product-9.jpg",
+      "title": "Mango People T-shirt",
+      "color": "Black",
+      "size": "S",
+      "price": 100,
+      "shipping": 5
+    }
+  ]
+}
