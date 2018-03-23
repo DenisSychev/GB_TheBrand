@@ -3,7 +3,7 @@
 function BasketInDropDownPanel(id) {
   Container.call(this, id);
   this.countGoods = 0;
-  this.amountGoods = 0;
+  //this.amountGoods = 0;
   this.basketItems = [];
   this.loadBasketItems();
 }
@@ -67,7 +67,7 @@ BasketInDropDownPanel.prototype.render = function (htmlElement) {
   var $buttonGoCart = $('<a />', {
     href: "shopping_cart.html",
     class: "gtCartButton",
-    text:"Go to cart"
+    text: "Go to cart"
   });
 
   //Формирование блока кнопок перехода в корзину или в покупку товаров
@@ -110,6 +110,7 @@ BasketInDropDownPanel.prototype.loadBasketItems = function () {
 
       for (var i = 0; i < data.basket.length; i++) {
         //this.amount = data.amount; //Сумма товаров
+        this.id_product = data.basket[i].id_product;
         this.src = data.basket[i].src;
         this.title = data.basket[i].title;
         this.price = data.basket[i].price;
@@ -203,7 +204,8 @@ BasketInDropDownPanel.prototype.loadBasketItems = function () {
          * @type {jQuery|HTMLElement}
          */
         var $goodDell = $('<div />', {
-          class: 'dell'
+          class: 'dell',
+          'data-id': this.id_product
         });
 
         /**
@@ -252,6 +254,7 @@ BasketInDropDownPanel.prototype.add = function (id_product, src, title, price) {
   //this.countGoods++;
   this.amountGoods += price;
   this.basketItems.push(basketItem);
+  console.log('Товары добавлены в массив' + this.basketItems);
   this.refresh();
 };
 
@@ -259,4 +262,202 @@ BasketInDropDownPanel.prototype.refresh = function () {
   var $basketDropDown = $('.cartDropDown');
   $basketDropDown.empty();
   console.log('Drop down меню очищено после клика на кнопку');
+
+  /**
+   * Блок кнопок
+   * @type {jQuery|HTMLElement}
+   */
+  var $basketDDButtons = $('<div />', {
+    class: "inBasketButtons"
+  });
+
+  /**
+   * Кнопка перехода на страницу покупки товаров
+   * @type {jQuery|HTMLElement}
+   */
+  var $buttonCheckout = $('<a />', {
+    href: "checkout.html",
+    class: "checkoutButton",
+    text: "Checkout"
+  });
+
+  /**
+   * Кнопка перехода на страницу корзины
+   * @type {jQuery|HTMLElement}
+   */
+  var $buttonGoCart = $('<a />', {
+    href: "shopping_cart.html",
+    class: "gtCartButton",
+    text: "Go to cart"
+  });
+
+  /**
+   * Блок суммы товаров в корзине
+   * @type {jQuery|HTMLElement}
+   */
+  var $basketDDSum = $('<div />', {
+    class: "summCart"
+  });
+
+  /**
+   * Текст для блока суммы товаров в корзине
+   * @type {jQuery|HTMLElement}
+   */
+  var $textDDsum = $('<p />', {
+    text: 'Total'
+  });
+
+  //Формирование блока кнопок перехода в корзину или в покупку товаров
+  $buttonCheckout.appendTo($basketDDButtons);
+  $buttonGoCart.appendTo($basketDDButtons);
+
+  //Добавление блока суммы товаров в корзине
+  $textDDsum.appendTo($basketDDSum);
+  $basketDDSum.appendTo($basketDropDown);
+
+  //Добавление блока с кнопками в выпадающее меню
+  $basketDDButtons.appendTo($basketDropDown);
+
+  //Перебор массива basketItems
+  for (var i = 0; i < this.basketItems; i++) {
+
+    this.amountGoods = this.basketItems[i].amountGoods;
+    this.id_product = this.basketItems[i].id_product;
+    this.src = this.basketItems[i].src;
+    this.title = this.basketItems[i].title;
+    this.price = this.basketItems[i].price;
+
+
+    /**
+     * Сумма всех товаров в корзине
+     * @type {jQuery|HTMLElement}
+     */
+    var $basketAmount = $('<p />', {
+      text: '$' + this.amountGoods
+    });
+
+    //Добавление суммы всех товаров в корзине в блок суммы
+    $basketAmount.appendTo($basketDDSum);
+
+
+    /**
+     * Контейнер товара в drop down меню
+     * @type {jQuery|HTMLElement}
+     */
+    var $basketItemsDiv = $('<div />', {
+      class: 'inBasket'
+    });
+
+    /**
+     * Картинка товара
+     * @type {jQuery|HTMLElement}
+     */
+    var $goodImg = $('<img />', {
+      src: this.src,
+      alt: this.title
+    });
+
+    /**
+     * Контейнер с описанием товара
+     * @type {jQuery|HTMLElement}
+     */
+    var $goodSpecific = $('<div />', {
+      class: 'specific'
+    });
+
+    /**
+     * Название товара
+     * @type {jQuery|HTMLElement}
+     */
+    var $goodTitle = $('<h4 />', {
+      text: this.title
+    });
+
+    /**
+     * Контейнер рейтинга товара
+     * @type {jQuery|HTMLElement}
+     */
+    var $goodRating = $('<div />', {
+      class: 'rating'
+    });
+
+    /**
+     * Целая звезда из набора Fontello для рейтинга товара
+     * @type {jQuery|HTMLElement}
+     */
+    var $iconFullStar = $('<i />', {
+      class: 'icon-star'
+    });
+
+    /**
+     * Половина звезды из набора Fontello для рейтинга товара
+     * @type {jQuery|HTMLElement}
+     */
+    var $iconHalfStar = $('<i />', {
+      class: 'icon-star-half-alt'
+    });
+
+    /**
+     * Контейнер количества и суммы одного товара
+     * @type {jQuery|HTMLElement}
+     */
+    var $goodCountDiv = $('<div />', {
+      class: 'count',
+      text: 'x'
+    });
+
+    /**
+     * Количество одного товара
+     * @type {jQuery|HTMLElement}
+     */
+    var $goodCount = $('<div />', {
+      class: 'number',
+      text: 1
+    });
+
+    /**
+     * Цена единицы товара
+     * @type {jQuery|HTMLElement}
+     */
+    var $goodPrice = $('<div />', {
+      class: 'amount',
+      text: '$' + this.price
+    });
+
+    /**
+     * Контейнер кнопки удаления товара
+     * @type {jQuery|HTMLElement}
+     */
+    var $goodDell = $('<div />', {
+      class: 'dell',
+      'data-id': this.id_product
+    });
+
+    /**
+     * Крестик из набора Fontello для удаления товара
+     * @type {jQuery|HTMLElement}
+     */
+    var $iconCancelCircled = $('<i />', {
+      class: 'icon-cancel-circled'
+    });
+
+    $goodImg.appendTo($basketItemsDiv);
+
+    $goodTitle.appendTo($goodSpecific);
+
+    $iconFullStar.appendTo($goodRating);
+    $iconHalfStar.appendTo($goodRating);
+    $goodRating.appendTo($goodSpecific);
+
+    $goodCount.prependTo($goodCountDiv);
+    $goodPrice.appendTo($goodCountDiv);
+    $goodCountDiv.appendTo($goodSpecific);
+
+    $goodSpecific.appendTo($basketItemsDiv);
+
+    $iconCancelCircled.appendTo($goodDell);
+    $goodDell.appendTo($basketItemsDiv);
+
+    $basketItemsDiv.prependTo($basketDropDown);
+  }
 };
