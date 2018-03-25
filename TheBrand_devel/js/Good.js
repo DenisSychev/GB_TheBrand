@@ -12,7 +12,7 @@ Good.prototype.render = function (htmlElement) {
   var $goodsContent = $('<div />', {
     class: 'items content'
   });
-  //<button href="#" class="button allProduct">Browse All Product <i class="icon-right"></i></button>
+
   var $btnViewAllProd = $('<button />', {
     class: 'button allProduct',
     text: 'Browse All Product'
@@ -40,7 +40,7 @@ Good.prototype.loadGoodItems = function () {
     dataType: 'json',
     context: this,
     success: function (data) {
-      console.log('JSON загрузился успешно');
+      console.log('JSON c товаром загрузился успешно');
       for (var i = 0; i < data.product.length; i++){
         this.id = data.product[i].id_product;
         this.src = data.product[i].src;
