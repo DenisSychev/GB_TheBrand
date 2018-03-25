@@ -16,6 +16,18 @@ Basket.prototype.constructor = Basket;
  * @param htmlElement
  */
 Basket.prototype.render = function (htmlElement) {
+
+  //<button type="reset" class="whiteButton">cLEAR SHOPPING CART</button>
+  var $btnClearBasket = $('<button />', {
+    type: "reset",
+    class: "whiteButton",
+    text: 'cLEAR SHOPPING CART'
+  });
+
+  /**
+   * Таблица с товарами корзины
+   * @type {jQuery|HTMLElement}
+   */
   var $basketDiv = $('<div />', {
     class: 'table',
     id: this.id + '_items'
@@ -24,11 +36,6 @@ Basket.prototype.render = function (htmlElement) {
   var $basketDivCaption = $('<div />', {
     class: "row caption"
   });
-
-  // var $basketItemsDiv = $('<div />', {
-  //   class: 'row',
-  //   id: this.id + '_items'
-  // });
 
   //Заголовки таблицы
   var $captionDetails = $('<div />', {
@@ -72,6 +79,8 @@ Basket.prototype.render = function (htmlElement) {
   $basketDivCaption.appendTo($basketDiv);
   //Собранная таблица встраивается в HTML
   $basketDiv.prependTo(htmlElement);
+  //Добавляется кнопка очистки корзины в HTML
+  $btnClearBasket.prependTo($('.buttons'));
 };
 
 /**
@@ -79,6 +88,8 @@ Basket.prototype.render = function (htmlElement) {
  */
 Basket.prototype.loadBasketItems = function () {
   var appendId = '#' + this.id + '_items';
+  var appendAmount = $('.total>p');
+  var appendGrandAmount = $('.total>h3');
 
   $.get({
     url: 'json/basket.json',
@@ -86,8 +97,24 @@ Basket.prototype.loadBasketItems = function () {
     context: this,
     success: function (data) {
       this.countGoods = data.basket.length;
+      this.amount = data.amount;
+
+      var $basketAmount = $('<span />', {
+        class: 'sub',
+        text: '$' + this.amount
+      });
+
+      $basketAmount.appendTo(appendAmount);
+
+      var $basketGrandAmount = $('<span />', {
+        class: 'grand',
+        text: '$' + this.amount
+      });
+
+      $basketGrandAmount.appendTo(appendGrandAmount);
+
       for (var i = 0; i < data.basket.length; i++) {
-        //this.amount = data.amount; //Сумма товаров
+        this.id_product = data.basket[i].id_product;
         this.src = data.basket[i].src;
         this.title = data.basket[i].title;
         this.color = data.basket[i].color;
@@ -96,7 +123,8 @@ Basket.prototype.loadBasketItems = function () {
         this.shipping = data.basket[i].shipping;
 
         var $basketItemsDiv = $('<div />', {
-          class: 'row'
+          class: 'row',
+          'data-id': this.id_product
         });
 
         var $goodDescription = $('<div />', {
@@ -143,10 +171,10 @@ Basket.prototype.loadBasketItems = function () {
           text: this.shipping
         });
 
-        // var $goodsSubtotal = $('<div />', {
-        //   class: 'cell subtotal',
-        //   text: '300'
-        // });
+        var $goodsSubtotal = $('<div />', {
+          class: 'cell subtotal',
+          text: '$' + this.price
+        });
 
         var $goodDell = $('<div />', {
           class: 'cell dell'
@@ -181,7 +209,8 @@ Basket.prototype.loadBasketItems = function () {
         //Столбец с информацией о доставке добавляется в строку
         $goodShipping.appendTo($basketItemsDiv);
 
-        //$goodsSubtotal.appendTo($basketData);
+        //Столбец с суммой выбранного количества товара
+        $goodsSubtotal.appendTo($basketItemsDiv);
 
         //Крестик из набора Fontello добавляется в кнопку удаления товара
         $iconCancelCircled.appendTo($goodDell);
