@@ -119,6 +119,7 @@ Basket.prototype.loadBasketItems = function () {
         this.title = data.basket[i].title;
         this.color = data.basket[i].color;
         this.size = data.basket[i].size;
+        this.currency = data.basket[i].currency;
         this.price = data.basket[i].price;
         this.shipping = data.basket[i].shipping;
 
@@ -148,9 +149,13 @@ Basket.prototype.loadBasketItems = function () {
 
         var $goodSize = $('<p>Size:' + this.size + '<p/>');
 
-        var $goodPrice = $('<div />', {
+        var $goodPriceCell = $('<div />', {
           class: 'cell unite_price',
-          text: '$' + this.price
+          text: this.currency
+        });
+
+        var $goodPrice = $('<span />', {
+          text: this.price
         });
 
         /**
@@ -164,8 +169,24 @@ Basket.prototype.loadBasketItems = function () {
          * Поле ввода количества товаров
          * @type {jQuery|HTMLElement}
          */
-        var $goodQuantity = $('<input type="number" value="1" min="1" />');
+        var $goodQuantity = $('<input type="text" value="1" data-id= "' +this.id_product+ '" readonly/>');
 
+
+        var $btnPlusProd = $('<button />', {
+          class: 'whiteButton',
+          id: "plus",
+          text: '+'
+        });
+
+        var $btnMinusProd = $('<button />', {
+          class: 'whiteButton',
+          id: "minus",
+          text: '-'
+        });
+
+        /**
+         * Стоимость доставки товара
+         */
         var $goodShipping = $('<div />', {
           class: 'cell shipping',
           text: this.shipping
@@ -198,10 +219,14 @@ Basket.prototype.loadBasketItems = function () {
         //Столбцец описания добавляется в строку
         $goodDescription.appendTo($basketItemsDiv);
         //Столбец с ценой добавляется в троку
-        $goodPrice.appendTo($basketItemsDiv);
+
+        $goodPrice.appendTo($goodPriceCell);
+        $goodPriceCell.appendTo($basketItemsDiv);
         //Столбец с количеством добавляется в строку
 
+        $btnMinusProd.appendTo($goodQuantityDiv);
         $goodQuantity.appendTo($goodQuantityDiv);
+        $btnPlusProd.appendTo($goodQuantityDiv);
         $goodQuantityDiv.appendTo($basketItemsDiv);
 
         //Сюда добавить выбор количества товара
@@ -225,6 +250,15 @@ Basket.prototype.loadBasketItems = function () {
       }
     }
   })
+};
+
+Basket.prototype.countGoodPlus = function (id_product, countProd, price) {
+  //$(findItemById).find('.kol').text(++kol);
+  var findProdById = $('.row').find('[data-id="'+ id_product +'"]');
+  //Здесь описать добавление количества товаров в HTML
+  this.countGoods++;
+  this.amount += price;
+  this.refresh();
 };
 
 Basket.prototype.add = function (idProduct, src, title, color, size, price, shipping) {

@@ -827,6 +827,8 @@ input[type='submit']:hover {
   vertical-align: middle;
   text-align: center;
   align-items: center; }
+  .cell span {
+    color: #000; }
 
 .caption {
   color: #222222;
@@ -868,6 +870,10 @@ input[type='submit']:hover {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none; }
+
+.quantity_cart button {
+  height: 30px;
+  padding: 5px; }
 
 .buttons button {
   padding: 20px 39px;
