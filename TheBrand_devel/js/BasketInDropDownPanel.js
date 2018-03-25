@@ -17,6 +17,10 @@ BasketInDropDownPanel.prototype.constructor = BasketInDropDownPanel;
  */
 BasketInDropDownPanel.prototype.render = function (htmlElement) {
 
+  var $basketCount = $('<div />', {
+    class: 'totalCount'
+  });
+
   /**
    * Drop down меню
    * @type {jQuery|HTMLElement}
@@ -70,6 +74,8 @@ BasketInDropDownPanel.prototype.render = function (htmlElement) {
     text: "Go to cart"
   });
 
+  $basketCount.appendTo(htmlElement);
+
   //Формирование блока кнопок перехода в корзину или в покупку товаров
   $buttonCheckout.appendTo($basketDDButtons);
   $buttonGoCart.appendTo($basketDDButtons);
@@ -88,14 +94,26 @@ BasketInDropDownPanel.prototype.render = function (htmlElement) {
 BasketInDropDownPanel.prototype.loadBasketItems = function () {
   var appendId = '#' + this.id + '_items';
   var appendAmount = '.summCart';
+  var appendCount = '.totalCount';
 
   $.get({
     url: 'json/basket.json',
     dataType: 'json',
     context: this,
     success: function (data) {
+      console.log('JSON c корзиной загрузился успешно');
       this.countGoods = data.basket.length;
       this.amountGoods = data.amount;
+
+      /**
+       * Количество товаров в корзине
+       * @type {jQuery|HTMLElement}
+       */
+      var $countGoods = $('<span />', {
+        text: this.countGoods
+      });
+
+      $countGoods.appendTo(appendCount);
 
       /**
        * Сумма всех товаров в корзине

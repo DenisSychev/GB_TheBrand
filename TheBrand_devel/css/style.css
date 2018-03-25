@@ -111,6 +111,16 @@ summary::-webkit-details-marker {
   .browse:hover .dropDownMenu, .browse:hover .megaMenue, .browse:hover .cartDropDown {
     display: block; }
 
+.totalCount {
+  position: absolute;
+  z-index: 999;
+  left: 45px;
+  top: -10px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0.3px; }
+
 .dropDownMenu, .megaMenue, .cartDropDown {
   position: absolute;
   z-index: 999;
