@@ -9,10 +9,6 @@ Good.prototype = Object.create(Container.prototype);
 Good.prototype.constructor = Good;
 
 Good.prototype.render = function (htmlElement) {
-  var $goodsContent = $('<div />', {
-    class: 'items content'
-  });
-
   var $btnViewAllProd = $('<button />', {
     class: 'button allProduct',
     text: 'Browse All Product'
@@ -26,10 +22,14 @@ Good.prototype.render = function (htmlElement) {
     class: 'icon-right'
   });
 
+  var $goodsContent = $('<div />', {
+    class: 'items content'
+  });
+
   $iconBasket.appendTo($btnViewAllProd);
-  $btnViewAllProd.after($goodsContent);
 
   $goodsContent.appendTo(htmlElement);
+  $btnViewAllProd.appendTo(htmlElement);
 };
 
 Good.prototype.loadGoodItems = function () {
@@ -52,7 +52,8 @@ Good.prototype.loadGoodItems = function () {
          * @type {jQuery|HTMLElement}
          */
         var $goodContainer = $('<section />', {
-          class: 'product'
+          class: 'product',
+          'data-id': this.id
         });
 
         /**
@@ -86,9 +87,13 @@ Good.prototype.loadGoodItems = function () {
          * Цена товара
          * @type {jQuery|HTMLElement}
          */
-        var $goodPrice = $('<p />', {
+        var $goodPriceBlock = $('<p />', {
           class: "price",
-          text: '$' + this.price
+          text: '$'
+        });
+
+        var $goodPrice = $('<span />', {
+          text: this.price
         });
 
         /**
@@ -113,7 +118,9 @@ Good.prototype.loadGoodItems = function () {
         //Формирование блока Описание товара
         $goodImg.appendTo($goodDescription);
         $goodTitle.appendTo($goodDescription);
-        $goodPrice.appendTo($goodDescription);
+
+        $goodPrice.appendTo($goodPriceBlock);
+        $goodPriceBlock.appendTo($goodDescription);
 
         //Добавление корзины из Fontello в кнопку
         $iconBasket.prependTo($goodAddToCart);
