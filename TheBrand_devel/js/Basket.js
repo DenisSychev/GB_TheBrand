@@ -165,22 +165,24 @@ Basket.prototype.loadBasketItems = function () {
         var $goodQuantityDiv = $('<div />', {
           class: 'cell quantity_cart'
         });
+
         /**
          * Поле ввода количества товаров
          * @type {jQuery|HTMLElement}
          */
-        var $goodQuantity = $('<input type="text" value="1" data-id= "' +this.id_product+ '" readonly/>');
+        var $goodQuantity = $('<p />', {
+          'data-id': this.id_product,
+          text: 1
+        });
 
 
         var $btnPlusProd = $('<button />', {
-          class: 'whiteButton',
-          id: "plus",
+          class: 'whiteButton plus',
           text: '+'
         });
 
         var $btnMinusProd = $('<button />', {
-          class: 'whiteButton',
-          id: "minus",
+          class: 'whiteButton minus',
           text: '-'
         });
 
@@ -244,20 +246,27 @@ Basket.prototype.loadBasketItems = function () {
         //Сформированная строка добавляется в таблицу
         $basketItemsDiv.appendTo(appendId);
 
-        for (var itemKey in data.basket) {
-          this.basketItems.push(data.basket[itemKey]);
-        }
+        // for (var itemKey in data.basket) {
+        //   this.basketItems.push(data.basket[itemKey]);
+        // }
       }
     }
   })
 };
 
 Basket.prototype.countGoodPlus = function (id_product, countProd, price) {
-  //$(findItemById).find('.kol').text(++kol);
   var findProdById = $('.row').find('[data-id="'+ id_product +'"]');
-  //Здесь описать добавление количества товаров в HTML
+  $(findProdById).find('.quantity_cart').find('p').text(++countProd);
   this.countGoods++;
   this.amount += price;
+  this.refresh();
+};
+
+Basket.prototype.countGoodMinus = function (id_product, countProd, price) {
+  var findProdById = $('.row').find('[data-id="'+ id_product +'"]');
+  $(findProdById).find('.quantity_cart').find('p').text(--countProd);
+  this.countGoods--;
+  this.amount -= price;
   this.refresh();
 };
 
