@@ -53,8 +53,7 @@ gulp.task('html', function () {
  */
 gulp.task('sass', function () {
   gulp.src(config.devel + '/sass/**/*.sass')
-    .pipe(sass()).pipe(gulp.dest(config.devel + '/css'))
-    .pipe(gulp.dest(config.test + '/css'))
+    .pipe(sass()).pipe(gulp.dest(config.test + '/css'))
     .pipe(BS.reload({stream: true}))
 });
 
