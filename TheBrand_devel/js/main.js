@@ -24,6 +24,14 @@ $(document).ready(function () {
   DDmenu.render($('.basket'));
   console.log(DDmenu.basketItems);
 
+  $('.dell').on('click', function () {
+    console.log('Произошёл клиу по крестику удаления товара');
+    var id_product = parseInt($(this).attr('data-id'));
+    var countProd = parseInt($(this).parent('.inBasket[data-id='+ id_product +']').find('.number').text());
+    var price = parseInt($(this).parent('.inBasket[data-id='+ id_product +']').find('.amount > span'));
+    DDmenu.remove(id_product, countProd, price);
+  });
+
   /**
    * Обработка клика на кнопку Add to Cart на товаре
    */

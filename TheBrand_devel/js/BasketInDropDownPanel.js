@@ -91,6 +91,9 @@ BasketInDropDownPanel.prototype.render = function (htmlElement) {
   $basketDropDown.appendTo(htmlElement);
 };
 
+/**
+ *  Загрузка и отрисовка товаров из JSON
+ */
 BasketInDropDownPanel.prototype.loadBasketItems = function () {
   var appendId = '#' + this.id + '_items';
   var appendAmount = '.summCart';
@@ -138,7 +141,8 @@ BasketInDropDownPanel.prototype.loadBasketItems = function () {
          * @type {jQuery|HTMLElement}
          */
         var $basketItemsDiv = $('<div />', {
-          class: 'inBasket'
+          class: 'inBasket',
+          'data-id': this.id_product
         });
 
         /**
@@ -212,10 +216,16 @@ BasketInDropDownPanel.prototype.loadBasketItems = function () {
          * Цена единицы товара
          * @type {jQuery|HTMLElement}
          */
-        var $goodPrice = $('<div />', {
+        var $goodPriceClass = $('<div />', {
           class: 'amount',
-          text: '$' + this.price
+          text: '$'
         });
+
+        var $goodPrice = $('<span />', {
+          text: this.price
+        });
+
+        $goodPrice.appendTo($goodPriceClass);
 
         /**
          * Контейнер кнопки удаления товара
@@ -243,7 +253,7 @@ BasketInDropDownPanel.prototype.loadBasketItems = function () {
         $goodRating.appendTo($goodSpecific);
 
         $goodCount.prependTo($goodCountDiv);
-        $goodPrice.appendTo($goodCountDiv);
+        $goodPriceClass.appendTo($goodCountDiv);
         $goodCountDiv.appendTo($goodSpecific);
 
         $goodSpecific.appendTo($basketItemsDiv);
@@ -261,6 +271,13 @@ BasketInDropDownPanel.prototype.loadBasketItems = function () {
   })
 };
 
+/**
+ * Добавление товара в корзину
+ * @param {int} id_product Код (data-id)
+ * @param {string} src Ссылка на картинку
+ * @param {string} title Название
+ * @param {int} price Цена
+ */
 BasketInDropDownPanel.prototype.add = function (id_product, src, title, price) {
   var basketItem = {
     "id_product": id_product,
@@ -269,13 +286,30 @@ BasketInDropDownPanel.prototype.add = function (id_product, src, title, price) {
     "price": price
   };
 
-  //this.countGoods++;
+  this.countGoods++;
   this.amountGoods += price;
   this.basketItems.push(basketItem);
   console.log('Товары добавлены в массив' + this.basketItems);
   this.refresh();
 };
 
+/**
+ * Удаление товара из корзины
+ * @param {int} id_product Код (data-id)
+ * @param {int} countProd Количество единиц этого товара
+ * @param {int} price Цена
+ */
+BasketInDropDownPanel.prototype.remove = function (id_product, countProd, price) {
+  var sumPriceThisProd = countProd * price;
+  //this.countGoods -=countProd;
+  this.amountGoods -= sumPriceThisProd;
+  $('.cartDropDown').find('.inBasket[data-id='+ id_product +']').remove();
+  this.refresh();
+};
+
+/**
+ * Обновление drop down блока 
+ */
 BasketInDropDownPanel.prototype.refresh = function () {
   var $basketDropDown = $('.cartDropDown');
   $basketDropDown.empty();
